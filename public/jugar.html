@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="estils.css" type="text/css">
+    <script src="llamadasAJAX.js"></script>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Jordi Poker</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="comoJugar.html">Com Jugar</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Jugar
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="jugar.html">Express</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="jugarJAX.html">JAX RS</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="sobreMi.html">Sobre mi</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Updates</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" action="login.html">
+
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+            </form>
+            <form class="form-inline my-2 my-lg-0" action="signup.html">
+
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign Up</button>
+            </form>
+        </div>
+    </nav>
+
+
+
+
+
+    <div class="jumbotron jumbotron-fluid">
+        <form>
+            <div class="form-group text-justify width_form">
+                <h1>Iniciar Joc</h1>
+                <hr class="my-4">
+                <label for="codi">Codi Partida: </label>
+                <input type="number" class="form-control" name="codi" id="codiIniciarJoc"><br>
+                <button id="botonIniciarJoc">Iniciar Joc</button>
+                <div id="infoIniciarJoc"></div>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="jumbotron jumbotron-fluid blanco">
+
+
+        <form>
+            <div class="form-group text-justify width_form">
+                <h1>Obtenir Carta</h1>
+                <hr class="my-4">
+                <label for="codi">Codi Partida: </label>
+                <input type="number" class="form-control" name="codi" id="codiObtenirCarta"><br>
+                <button id="botonObtenirCarta">Obtenir carta</button>
+                <div id="infoObtenirCarta"></div>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="jumbotron jumbotron-fluid">
+
+        <form>
+            <div class="form-group text-justify width_form">
+                <h1>Mostrar Cartes</h1>
+                <hr class="my-4">
+                <label for="codi">Codi Partida: </label>
+                <input type="number" class="form-control" name="codi" id="codiMostrarCartes"><br>
+                <button id="botonMostrarCartes">Mostrar cartes</button>
+                <div id="infoMostrarCartes"></div>
+            </div>
+
+        </form>
+
+    </div>
+
+    <div class="jumbotron jumbotron-fluid blanco">
+
+        <form>
+            <div class="form-group text-justify width_form">
+                <h1>Tirar Carta</h1>
+                <hr class="my-4">
+                <label for="player">Player: </label>
+                <input type="text" class="form-control" name="player" id="playerTirarCarta"><br>
+                <button id="botonTirarCarta">Tirar cartes</button>
+                <div id="infoTirarCarta"></div>
+            </div>
+
+        </form>
+    </div>
+
+
+    <div class="jumbotron jumbotron-fluid ">
+
+        <form>
+            <div class="form-group text-justify width_form">
+                <h1>Acabar Joc</h1>
+                <hr class="my-4">
+                <label for="codiAcabarJoc">Codi: </label>
+                <input type="text" class="form-control" name="codi" id="codiAcabarJoc"><br>
+                <button id="botonAcabarJoc">Acabar Joc</button>
+                <label id="infoAcabarJoc">
+            </div>
+    </div>
+
+    </form>
+
+    </div>
+
+    <footer class="page-footer font-small bg-light pt-4">
+
+        <!-- Footer Links -->
+        <div class="container-fluid text-center text-md-left">
+
+            <!-- Grid row -->
+            <div class="row">
+
+                <!-- Grid column -->
+                <div class="col-md-5 mt-5 ml-5 mt-3">
+
+                    <!-- Content -->
+                    <h5 class="text-uppercase">Jordi Yang</h5>
+                    <p>Estudiant de DAW2</p>
+
+                </div>
+                <!-- Grid column -->
+
+                <hr class="clearfix w-100 d-md-none pb-3">
+
+                <!-- Grid column -->
+                <div class="col-md-3 mb-md-0 mb-3">
+
+                    <!-- Links -->
+                    <h5 class="text-uppercase">LLoc Web</h5>
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#!">Sobre Poker</a>
+                        </li>
+                        <li>
+                            <a href="#!">Preguntes freqüents</a>
+                        </li>
+                        <li>
+                            <a href="#!">Manual d'ús</a>
+                        </li>
+                        <li>
+                            <a href="#!">Col·laborar</a>
+                        </li>
+                        <li>
+                            <a href="#!">Normes de la comunitat</a>
+                        </li>
+                        <li>
+                            <a href="#!">Termes d'ús</a>
+                        </li>
+                        <li>
+                            <a href="#!">Política de privacitat</a>
+                        </li>
+                        <li>
+                            <a href="#!">Cookies</a>
+                        </li>
+                        <li>
+                            <a href="#!">Contacte</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-md-3 mb-md-0 mb-3">
+
+                    <!-- Links -->
+                    <h5 class="text-uppercase">Explorar</h5>
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#!">Biblioteques</a>
+                        </li>
+                        <li>
+                            <a href="#!">Grups</a>
+                        </li>
+                        <li>
+                            <a href="#!">Llistes</a>
+                        </li>
+
+                    </ul>
+
+                </div>
+                <!-- Grid column -->
+
+            </div>
+            <!-- Grid row -->
+
+        </div>
+        <!-- Footer Links -->
+
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">© 2020 Copyright:
+            <a href="#">JordiYang.com</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://www.facebook.com/jordiyang1" target="_blank"><img src="facebook.png" alt="facebookImg"></a>
+
+            <a href="https://www.instagram.com/yyyyyyyya11/" target="_blank"><img src="instagram.png"
+                    alt="instaImg"></a>
+
+            <a href="mailto:jordiyang@hotmail.com" target="_blank"><img src="email.png" alt="emaiImg"></a>
+
+            <a href="tel:611473512" target="_blank"><img src="telephone.png" alt="telephoneImg"></a>
+
+            <a href="https://github.com/oxjordixo65" target="_blank"><img src="github.png" alt="githubImg"></a>
+        </div>
+        <!-- Copyright -->
+
+    </footer>
+    <!-- Footer -->
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js "
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo "
+        crossorigin="anonymous "></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js "
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6 "
+        crossorigin="anonymous "></script>
+</body>
+
+</html>
