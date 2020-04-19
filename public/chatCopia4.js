@@ -12,16 +12,6 @@ window.addEventListener('load', () => {
     var time = 15;
     var juego = document.getElementById("juego");
 
-    
-    
-    var jugador1 = new Jugador("jordi","123");
-    jugador1.jugadorName="danne";
-    //jugador1.puntuacio=100;
-    alert(jugador1.info());
-
-    //jugador.puntuacio=100;
-    //alert(jugador.info());
-    //alert(partida.info());
 
     //var myArray = [[1, 2, 3], [4, 5, 6]];
 
@@ -61,25 +51,10 @@ window.addEventListener('load', () => {
 
         newArray = [];
 
-        if (localStorage.getItem("name") == "1") {
-
-            if ($(this).html() == 0) {
-                $(this).html('1');
-                /* if ($(this).html() == "1") {
-                    $(this).css('backgroundColor', 'blue');
-                } */
-
-            }
-
-        } if (localStorage.getItem("name") != "1") {
-            if ($(this).html() == 0) {
-                $(this).html('2');
-                /* if ($(this).html() == "1") {
-                    $(this).css('backgroundColor', 'blue');
-                } */
-
-            }
-
+        if (localStorage.getItem("name") == "j") {
+            $(this).html('1');
+        } if (localStorage.getItem("name") != "j") {
+            $(this).html('2');
         }
 
         if ($(this).html() == "1") {
@@ -174,26 +149,12 @@ window.addEventListener('load', () => {
         $('td').click(function () {
 
             newArray = [];
-            if (localStorage.getItem("name") == "1") {
-
-                if ($(this).html() == 0) {
-                    $(this).html('1');
-                    /* if ($(this).html() == "1") {
-                        $(this).css('backgroundColor', 'blue');
-                    } */
-
-                }
-
-            } if (localStorage.getItem("name") != "1") {
-                if ($(this).html() == 0) {
-                    $(this).html('2');
-                    /* if ($(this).html() == "1") {
-                        $(this).css('backgroundColor', 'blue');
-                    } */
-
-                }
-
+            if (localStorage.getItem("name") == "j") {
+                $(this).html('1');
+            } if (localStorage.getItem("name") != "j") {
+                $(this).html('2');
             }
+
             if ($(this).html() == "1") {
                 $(this).css('backgroundColor', 'blue');
             }
@@ -230,16 +191,11 @@ window.addEventListener('load', () => {
 
     }, 1000);
 
-    document.getElementById("signUpBtn").addEventListener("click", () => {
+    document.getElementById("loginBtn").addEventListener("click", () => {
         let name = document.getElementById("name").value;
         let passw = document.getElementById("passw").value;
         localStorage.setItem("name", name);
         localStorage.setItem("passw", passw);
-        //document.getElementById("result").innerHTML = localStorage.getItem("lastname");
-    });
-
-    document.getElementById("deleteAllBtn").addEventListener("click", () => {
-        
         //document.getElementById("result").innerHTML = localStorage.getItem("lastname");
     });
 

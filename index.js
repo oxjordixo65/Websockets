@@ -1,10 +1,12 @@
 const express = require('express');
 const app = express();
-
-const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const passport = require('passport');
+
 const path = require("path");
+
+/* const passport = require('passport');
+const mongoose = require('mongoose');
+
 const UserModel = require('./model');
 
 mongoose.connect('mongodb://127.0.0.1:27017/passport-jwt', { useMongoClient: true });
@@ -26,7 +28,7 @@ app.use('/user', passport.authenticate('jwt', { session: false }), secureRoute);
 app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.json({ error: err });
-});
+}); */
 
 //HASTA AQUI PASSPORT
 
@@ -78,13 +80,13 @@ io.on("connection", (socket) => {
         socket.broadcast.emit('server-typing', data); //enviar a todos menos a mi
     });
 
-    
+
     socket.on('chat-array', (data) => {
         socket.broadcast.emit('server-array', data); //enviar a todos menos a mi
         console.log("usuarios: " + users);
     });
 
-    
+
 
 
 
@@ -92,7 +94,70 @@ io.on("connection", (socket) => {
 });
 
 
+var MongoClient = require('mongodb').MongoClient;
+
+var url = "mongodb://localhost:27017/";
+
+MongoClient.connect(url, function (err, db) {
+    if (err) throw err;
+    var dbo = db.db("Websockets");
+    dbo.createCollection("players", function (err, res) {
+        if (err) throw err;
+        console.log("Collection players created!");
+        db.close();
+    });
+});
 
 
+app.post('/signUp', function (req, res) {
 
+    MongoClient.connect(url, function (err, db) {
+
+        if (err) throw err;
+        var dbo = db.db("Websockets");
+        var query = { name: req.body.name };
+        //var flag=false;
+
+        dbo.collection("players").find(query).toArray(function (err, result) {
+            if (err) throw err;
+            console.log(result);
+            flag = true;
+            db.close();
+        });
+
+        //console.log("resultados..." + results);
+
+        //if(flag){
+        var myobj = { name: req.body.name, password: req.body.passw };
+        dbo.collection("players").insertOne(myobj, function (err, res) {
+            if (err) throw err;
+            console.log("1 document inserted");
+            db.close();
+        });
+        console.log(`Usuario ${req.body.name} registrado correctamente!`);
+        //}
+
+        res.send(`Usuario ${req.body.name} registrado correctamente!`);
+
+    });
+
+
+});
+
+app.get('/deleteAll', function (req, res) {
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("Websockets");
+        var myquery = {};
+        dbo.collection("players").deleteMany(myquery, function (err, obj) {
+            if (err) throw err;
+            console.log(obj.result.n + " document(s) deleted");
+            db.close();
+        });
+
+        res.send(`Eliminados todos los usuarios!`);
+    });
+
+    
+});
 
