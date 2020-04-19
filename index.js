@@ -100,6 +100,7 @@ io.on("connection", (socket) => {
                 var dbo = db.db("Websockets");
 
 
+                max.time=15;
                 dbo.collection("bestPlayers").insertOne(max, function (err, res) {
                     if (err) throw err;
                     console.log("1 document inserted");
