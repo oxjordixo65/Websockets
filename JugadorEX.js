@@ -1,9 +1,9 @@
-class Jugador {
+module.exports = class JugadorEX {
 
-    constructor(n,psw) {
-      this.name=n;
-      this.password=psw;
-      this.points=0;
+    constructor(n, psw, p) {
+        this.name = n;
+        this.password = psw;
+        this.points = p;
     }
 
 

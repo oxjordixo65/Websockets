@@ -12,18 +12,8 @@ window.addEventListener('load', () => {
     var time = 15;
     var juego = document.getElementById("juego");
 
-    
-    
-    var jugador1 = new Jugador("jordi","123");
-    jugador1.jugadorName="danne";
-    //jugador1.puntuacio=100;
-    alert(jugador1.info());
+    var puntos = 0;
 
-    //jugador.puntuacio=100;
-    //alert(jugador.info());
-    //alert(partida.info());
-
-    //var myArray = [[1, 2, 3], [4, 5, 6]];
 
     var myArray = [[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]]
     var newArray = new Array();
@@ -53,33 +43,28 @@ window.addEventListener('load', () => {
     start();
 
 
+    document.getElementById("startBtn").addEventListener("click", () => {
+        $("#startBtn").css('background-color', 'green');
+        socket.emit('startGame', 1);
+    });
 
     //td click
     $('td').click(function () {
 
-        //$(this).css('backgroundColor', '#000');
-
+        puntos += 100;
+        
         newArray = [];
 
         if (localStorage.getItem("name") == "1") {
 
             if ($(this).html() == 0) {
                 $(this).html('1');
-                /* if ($(this).html() == "1") {
-                    $(this).css('backgroundColor', 'blue');
-                } */
-
             }
 
         } if (localStorage.getItem("name") != "1") {
             if ($(this).html() == 0) {
                 $(this).html('2');
-                /* if ($(this).html() == "1") {
-                    $(this).css('backgroundColor', 'blue');
-                } */
-
             }
-
         }
 
         if ($(this).html() == "1") {
@@ -108,7 +93,6 @@ window.addEventListener('load', () => {
     });
 
 
-
     send.addEventListener('click', () => {
         socket.emit('chat-message', { "message": message.value, "username": username.value });
         console.log(
@@ -121,8 +105,6 @@ window.addEventListener('load', () => {
         var txt = "vacio";
         socket.emit('chat-message2', { 'users': txt });
 
-
-
     });
 
     //usuario escribiendo
@@ -132,15 +114,14 @@ window.addEventListener('load', () => {
 
 
     socket.on('server-message', (data) => {
-        alert("data" + data);
+        
         actions.innerHTML = "";
         output.innerHTML += `<p><strong>${data.username}</strong>: ${data.message}</p>`;
     });
 
     socket.on('server-message2', (data) => {
-        alert(data);
-        actions.innerHTML = "";
-        output.innerHTML += `<p><strong>${data}</strong></p>`;
+        alert(JSON.stringify(data));
+        
     });
 
 
@@ -178,19 +159,11 @@ window.addEventListener('load', () => {
 
                 if ($(this).html() == 0) {
                     $(this).html('1');
-                    /* if ($(this).html() == "1") {
-                        $(this).css('backgroundColor', 'blue');
-                    } */
-
                 }
 
             } if (localStorage.getItem("name") != "1") {
                 if ($(this).html() == 0) {
                     $(this).html('2');
-                    /* if ($(this).html() == "1") {
-                        $(this).css('backgroundColor', 'blue');
-                    } */
-
                 }
 
             }
@@ -220,17 +193,45 @@ window.addEventListener('load', () => {
     });
 
 
-
     //contador
-    setInterval(function () {
-        if (time > 0) {
+    socket.on('server-startGame', (data) => {
+        const interval = setInterval(function () {
+            if (time > 0) {
 
-            tiempo.innerHTML = --time;
-        }
+                tiempo.innerHTML = --time;
+            }
+            if (time == 0) {
+                $('#estadoJuego').html("Juego finalizado");
+                clearInterval(interval);
+                $('td').unbind();
+                $('#puntuacion').html("Puntuacion: " + puntos);
+               
 
-    }, 1000);
+                if (localStorage.getItem("name") == "1") {
 
-    document.getElementById("signUpBtn").addEventListener("click", () => {
+                    socket.emit("finishedGame1", {
+                        "name": localStorage.getItem("name"),
+                        "passw": localStorage.getItem("passw"),
+                        "points": puntos
+                    });
+
+                } if (localStorage.getItem("name") != "1") {
+                    socket.emit("finishedGame2", {
+                        "name": localStorage.getItem("name"),
+                        "passw": localStorage.getItem("passw"),
+                        "points": puntos
+                    });
+
+                }
+                socket.emit("end",true);
+            }
+
+
+        }, 1000);
+    });
+
+
+   /*  document.getElementById("signUpBtn").addEventListener("click", () => {
         let name = document.getElementById("name").value;
         let passw = document.getElementById("passw").value;
         localStorage.setItem("name", name);
@@ -239,10 +240,31 @@ window.addEventListener('load', () => {
     });
 
     document.getElementById("deleteAllBtn").addEventListener("click", () => {
-        
+
         //document.getElementById("result").innerHTML = localStorage.getItem("lastname");
     });
 
+    */
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+        localStorage.removeItem('name');
+        localStorage.removeItem('passw');
+        alert("Logout!");
+    }); 
+
+
+    document.getElementById("showBestBtn").addEventListener("click",()=>{
+        $.ajax({
+            type: "GET",
+            url: '/showBest',
+            success: function(data) {
+                alert(JSON.stringify(data));
+                document.getElementById("bestPlayersP").innerHTML=JSON.stringify(data);
+            },
+            error: function() {
+                console.log("No se ha podido obtener la información");
+            }
+        });
+    })
 
 
 
